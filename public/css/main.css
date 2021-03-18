@@ -159,6 +159,11 @@ html{
     color: #c7cfb7;
 }
 
+.alertMsg{
+    margin-top: 10px;
+    margin-left: 27%;
+}
+
 /* ab_redirect page */
 
 .center1{
@@ -201,6 +206,8 @@ html{
     border-radius: 10px;
     border-width: 2px;
 }
+
+
 
 /* #393232
 5b5b5b */

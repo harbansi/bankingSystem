@@ -19,11 +19,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/newUser', function (req, res) {
-    res.render('newUser', { title: 'newUser' });
-});
-
-router.get('/ab_redirect', function (req, res) {
-    res.render('ab_redirect', { title: 'Successful' });
+    res.render('newUser', { title: 'newUser', msg:'' });
 });
 
 router.get('/users', function (req, res) {
@@ -53,7 +49,7 @@ router.post('/newUser', function (req, res, next) {
     User.findOne({ email: email }).then(user => {
         if (user) {
             // new AppError("Email already Exist!!!");
-            res.render('newUser', { title: 'New User' });
+            res.render('newUser', { title: 'New User',msg: "User already Exist!!" });
         }
         else {
             const users = new User({
@@ -64,7 +60,7 @@ router.post('/newUser', function (req, res, next) {
             users
                 .save()
                 .then(user => {
-                    res.redirect('/ab_redirect');
+                    res.render('newUser', { title: 'New User',msg: "User Added Successfully" });
                 })
                 .catch(err => console.log(err));
         }
