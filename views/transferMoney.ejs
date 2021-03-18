@@ -2,7 +2,14 @@
 
 
     <% if(users){ %>
-
+        <% if(msg !=='' ){ %>
+            <div class="col-lg-6 alert alert-info alert-dismissible fade show alertMsg" role="alert">
+                <%= msg %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+        <% } %>
 
         <div class=" container ">
             <div class="card">
