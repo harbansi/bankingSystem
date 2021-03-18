@@ -8,7 +8,6 @@ const ejs = require("ejs");
 const router = express.Router();
 const User = require('../models/users');
 const users = require('../seed/userSeeder');
-const AppError = require("../views/appError");
 
 const { Router } = require('express');
 const { render } = require('ejs');
@@ -48,7 +47,6 @@ router.post('/newUser', function (req, res, next) {
 
     User.findOne({ email: email }).then(user => {
         if (user) {
-            // new AppError("Email already Exist!!!");
             res.render('newUser', { title: 'New User',msg: "User already Exist!!" });
         }
         else {
