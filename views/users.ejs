@@ -1,0 +1,34 @@
+<%- include("partials/header"); -%>
+
+
+<% if(users && users.length !==0){ %>
+<div class="container">
+    <div class="row col-lg-12 custyle">
+    <table class="table table-striped custab">
+    <thead>
+    <a href="/newUser" class="btn btn-xs pull-left button1"><b>+</b> Add new User</a>
+   
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email ID</th>
+            <th class="text-center">Curret Balance</th>
+        </tr>
+    </thead>
+   <% users.forEach(function(user){ %>
+    <tr>
+        <td><%= user._id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td class="text-center"><%= user.current_balance %></td>
+    </tr>
+    <%}); %>
+        
+    <% } %>
+           
+            
+    </table>
+    </div>
+</div>
+
+<%- include("partials/footer"); -%>
