@@ -52,7 +52,7 @@ router.post('/newUser', function (req, res, next) {
 
     User.findOne({ email: email }).then(user => {
         if (user) {
-            new AppError("Email already Exist!!!");
+            // new AppError("Email already Exist!!!");
             res.render('newUser', { title: 'New User' });
         }
         else {
