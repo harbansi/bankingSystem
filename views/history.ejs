@@ -1,5 +1,6 @@
 <%- include("partials/header"); -%>
 
+<% if(transactions){ %>
 
 <div class="container">
     <div class="row col-lg-12 custyle">
@@ -8,24 +9,25 @@
     
    
         <tr>
-            <th>Sender</th>
-            <th>Receiver</th>
-            <th class="text-center">Amount of transection</th>
+            <th class="text-center">Sender</th>
+            <th class="text-center">Receiver</th>
+            <th class="text-center">Transaction Amount</th>
             
         </tr>
     </thead>
    
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="text-center"></td>
-    </tr>
+    <% transactions.forEach(function(transaction){ %>
 
-           
-            
+    <tr>
+        <td class="text-center"><%= transaction.sender %></td>
+        <td class="text-center"><%= transaction.receiver %></td>
+        <td class="text-center"><%= transaction.amount %></td>
+    </tr>
+    <% }); %>
+   
     </table>
     </div>
 </div>
+<% } %> 
 
 <%- include("partials/footer"); -%>

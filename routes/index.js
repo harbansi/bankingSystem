@@ -69,6 +69,7 @@ router.post('/newUser', function (req, res, next) {
 
 
 //transaction route
+
 router.get('/transferMoney', function (req, res) {
     User.find({}, function (err, foundusers) {
         res.render('transferMoney', { title: 'transferMoney', msg: '', users: foundusers });
@@ -76,7 +77,7 @@ router.get('/transferMoney', function (req, res) {
 });
 
 
-router.post('/transferMoney', function (req, res) {
+router.post('/transferMoney', async function (req, res) {
     const sender = req.body.sender;
     const receiver = req.body.receiver;
     const amount = req.body.amount;
@@ -85,44 +86,51 @@ router.post('/transferMoney', function (req, res) {
     // console.log(receiver);
     // console.log(amount);
 
-    const sender1 = User.findOne({ email: sender });
-    const receiver1 = User.findOne({ email: receiver });
-    // console.log(sender1);
-    // console.log(receiver1);
+    const sender1 = await User.findOne({ email: sender });
+    const receiver1 = await User.findOne({ email: receiver });
+   
 
+    User.find({}, async function (err, foundusers) {
 
+        if( sender1 == receiver1){
+            res.render('transferMoney', { title: 'TransferMoney', msg: "Sorry!! You can not transfer money to the same account.", users: foundusers });
 
-    User.find({}, function (err, foundusers) {
+        }
         if (!sender1 || !receiver1) {
-            res.redirect('/transferMoney');
-                }
+            res.render('transferMoney', { title: 'TransferMoney', msg: " User doesn't Exist!!", users: foundusers });
 
-        if (sender1.current_balance > 0 && amount < sender1.current_balance && amount > 0) {
+        }
+
+        else if (sender1.current_balance > 0 && amount < sender1.current_balance && amount > 0) {
             const newTransaction = new Transaction({
                 sender: sender1.email,
                 receiver: receiver1.email,
                 amount: amount
             });
             newTransaction.save();
+            console.log("transaction done", newTransaction);
 
             const am = parseInt(receiver1.current_balance) + parseInt(amount);
-            User.findOneAndUpdate({ email: sender }, { current_balance: parseInt(sender.current_balance) - parseInt(amount) });
-            User.findOneAndUpdate({ email: receiver }, { current_balance: am });      
+            await User.findOneAndUpdate({ email: sender }, { current_balance: parseInt(sender1.current_balance) - parseInt(amount) });
+            await User.findOneAndUpdate({ email: receiver }, { current_balance: am });
+            
+            res.render('transferMoney', { title: 'TransferMoney', msg: " payment done successfully!  ", users: foundusers });
 
         }
-        else if (amount > sender.current_balance) {
-            res.render('transferMoney', { title: 'TransferMoney', msg: " Sender doesn't have enough balance for payment  ", users: foundusers });
+        else if (sender1.current_balance < amount) {
+            res.render('transferMoney', { title: 'TransferMoney', msg: " Sender doesn't have enough balance for payment.", users: foundusers });
         }
-        else {
-            res.redirect('/transferMoney');
-        }
+        // else {
+        //     res.render('transferMoney', { title: 'TransferMoney', msg: "Amount should be positive. ", users: foundusers });
+        // }
 
     });
 });
 
 
-router.get('/history', function (req, res) {
-    res.render('history', { title: 'Transection History' })
+router.get('/history', async function (req, res) {
+    const transactions  = await Transaction.find({})
+    res.render('history', {title:"Transaction History",transactions})
 });
 
 
