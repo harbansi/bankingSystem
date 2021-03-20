@@ -7,6 +7,8 @@ html{
 	scroll-behavior: smooth;
 }
 
+
+/* home page */
 .navbarPrimary{
     position: sticky;
     top: 0;
@@ -36,7 +38,6 @@ html{
     color: #000;
     font-size: 25px;
 }
-
 
 #section1{
     background-color: #fff;
@@ -87,8 +88,8 @@ html{
 }
 
 .msg-col p{
-    color: #423d3d ;
-    font-size: 15px;
+    color: #201c1c ;
+    font-size: 17px;
     font-weight: 500;
     padding-left: 0;
     font-family: 'shippori mincho B1';
@@ -143,6 +144,22 @@ html{
     transform: translateY(-50%);
     transition: 0.8s;
 }
+footer {
+	position: relative;
+	text-align: center;
+    vertical-align: center;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color:#557174;
+}
+
+footer p {
+	margin-top: 0;
+	font-size: 14px;
+  color: #fff;
+}
+
 
 /* user page */
 .container{
