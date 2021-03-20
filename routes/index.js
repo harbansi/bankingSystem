@@ -120,9 +120,9 @@ router.post('/transferMoney', async function (req, res) {
         else if (sender1.current_balance < amount) {
             res.render('transferMoney', { title: 'TransferMoney', msg: " Sender doesn't have enough balance for payment.", users: foundusers });
         }
-        // else {
-        //     res.render('transferMoney', { title: 'TransferMoney', msg: "Amount should be positive. ", users: foundusers });
-        // }
+        else {
+            res.render('transferMoney', { title: 'TransferMoney', msg: "Amount should be positive. ", users: foundusers });
+        }
 
     });
 });
